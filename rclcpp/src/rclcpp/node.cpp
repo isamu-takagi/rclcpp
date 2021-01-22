@@ -94,6 +94,26 @@ Node::Node(
 {
 }
 
+// static
+// rcl_node_options_t
+// get_node_options_with_rosout_qos_overrides(const rclcpp::NodeOptions & node_options)
+// {
+
+// }
+
+// declare_qos_parameters(
+//       QosOverridingOptions{
+//         QosPolicyKind::Depth,
+//         QosPolicyKind::Durability,
+//         QosPolicyKind::History,
+//         QosPolicyKind::Lifespan,
+//         QosPolicyKind::Reliability,
+//       },
+//       node,
+//       "/rosout",
+//       options.rosout_qos(),
+//       Publisher);
+
 Node::Node(
   const std::string & node_name,
   const std::string & namespace_,
