@@ -30,6 +30,18 @@
 
 namespace rclcpp
 {
+
+namespace detail
+{
+/// \internal Get the definitive parameter overrides.
+std::map<std::string, rclcpp::ParameterValue>
+resolve_parameter_overrides(
+  const std::string & node_name,
+  const std::vector<rclcpp::Parameter> & parameter_overrides,
+  const rcl_arguments_t * local_args,
+  const rcl_arguments_t * global_args);
+}
+
 namespace node_interfaces
 {
 
@@ -44,17 +56,6 @@ struct OnSetParametersCallbackHandle
 
   OnParametersSetCallbackType callback;
 };
-
-namespace detail
-{
-  /// \internal Get the definitive parameter overrides.
-  std::map<std::string, rclcpp::ParameterValue>
-  resolve_parameter_overrides(
-    const std::string & node_name,
-    const std::vector<rclcpp::Parameter> & parameter_overrides,
-    const rcl_arguments_t * local_args,
-    const rcl_arguments_t * global_args);
-}
 
 /// Pure virtual interface class for the NodeParameters part of the Node API.
 class NodeParametersInterface

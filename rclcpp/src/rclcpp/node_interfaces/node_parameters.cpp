@@ -37,13 +37,8 @@
 
 using rclcpp::node_interfaces::NodeParameters;
 
-namespace rclcpp
-{
-namespace detail
-{
-/// \internal Get the definitive parameter overrides.
 std::map<std::string, rclcpp::ParameterValue>
-resolve_parameter_overrides(
+rclcpp::detail::resolve_parameter_overrides(
   const std::string & node_fqn,
   const std::vector<rclcpp::Parameter> & parameter_overrides,
   const rcl_arguments_t * local_args,
@@ -92,9 +87,8 @@ resolve_parameter_overrides(
     result[param.get_name()] =
       rclcpp::ParameterValue(param.get_value_message());
   }
+  return result;
 }
-}  // namespace detail
-}  // namespace rclcpp
 
 NodeParameters::NodeParameters(
   const rclcpp::node_interfaces::NodeBaseInterface::SharedPtr node_base,
@@ -151,7 +145,7 @@ NodeParameters::NodeParameters(
     global_args = &(context_ptr->global_arguments);
   }
 
-  detail::resolve_parameter_overrides(
+  parameter_overrides_ = rclcpp::detail::resolve_parameter_overrides(
     node_base->get_fully_qualified_name(), parameter_overrides, &options->arguments, global_args);
 
   // If asked, initialize any parameters that ended up in the initial parameter values,
