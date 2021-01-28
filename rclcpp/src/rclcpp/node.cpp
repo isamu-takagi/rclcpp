@@ -118,7 +118,7 @@ get_parameter_events_qos(
     options.parameter_overrides(),
     &rcl_options->arguments,
     global_args);
-  
+
   auto final_topic_name = node_base.resolve_topic_or_service_name("/parameter_events", false);
   auto prefix = "qos_overrides." + final_topic_name + ".";
   std::array<rclcpp::QosPolicyKind, 4> policies = {
@@ -193,12 +193,13 @@ Node::Node(
   // we have got what we wanted directly from the overrides,
   // but declare the parameters anyway so they are visible.
   rclcpp::detail::declare_qos_parameters(
-    rclcpp::QosOverridingOptions{
-      QosPolicyKind::Depth,
-      QosPolicyKind::Durability,
-      QosPolicyKind::History,
-      QosPolicyKind::Reliability,
-    },
+    rclcpp::QosOverridingOptions
+  {
+    QosPolicyKind::Depth,
+    QosPolicyKind::Durability,
+    QosPolicyKind::History,
+    QosPolicyKind::Reliability,
+  },
     node_parameters_,
     node_topics_->resolve_topic_name("/parameter_events"),
     options.parameter_event_qos(),

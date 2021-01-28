@@ -1966,14 +1966,14 @@ TEST_F(TestNode, get_parameters_undeclared_parameters_not_allowed) {
     auto name1 = "prefix1.parameter"_unq;
     auto name2 = "prefix2.parameter"_unq;
 
-    node_local->declare_parameter(name1, 42);
-    node_local->declare_parameter(name2, 100);
+    node_local->declare_parameter("prefix." + name1, 42);
+    node_local->declare_parameter("prefix." + name2, 100);
     // undeclare so that it doesn't interfere with the test
     node_local->undeclare_parameter("use_sim_time");
 
     {
       std::map<std::string, int64_t> actual;
-      EXPECT_TRUE(node_local->get_parameters("", actual));
+      EXPECT_TRUE(node_local->get_parameters("prefix", actual));
       EXPECT_NE(actual.find(name1), actual.end());
       EXPECT_NE(actual.find(name2), actual.end());
     }
