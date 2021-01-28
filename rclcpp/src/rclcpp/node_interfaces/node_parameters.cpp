@@ -144,9 +144,10 @@ NodeParameters::NodeParameters(
     auto context_ptr = node_base->get_context()->get_rcl_context();
     global_args = &(context_ptr->global_arguments);
   }
+  combined_name_ = node_base->get_fully_qualified_name();
 
   parameter_overrides_ = rclcpp::detail::resolve_parameter_overrides(
-    node_base->get_fully_qualified_name(), parameter_overrides, &options->arguments, global_args);
+    combined_name_, parameter_overrides, &options->arguments, global_args);
 
   // If asked, initialize any parameters that ended up in the initial parameter values,
   // but did not get declared explcitily by this point.
